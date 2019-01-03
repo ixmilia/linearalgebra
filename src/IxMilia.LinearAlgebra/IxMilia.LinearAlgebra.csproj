@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>A portable .NET library for performing linear algebra computations.</Description>
+    <Copyright>Copyright 2019</Copyright>
+    <AssemblyTitle>IxMilia.LinearAlgebra</AssemblyTitle>
+    <Authors>IxMilia</Authors>
+    <TargetFramework>netstandard1.0</TargetFramework>
+    <AssemblyName>IxMilia.LinearAlgebra</AssemblyName>
+    <PackageId>IxMilia.LinearAlgebra</PackageId>
+    <PackageTags>Linear Algebra</PackageTags>
+    <PackageProjectUrl>https://github.com/IxMilia/LinearAlgebra</PackageProjectUrl>
+    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+
+    <!-- SourceLink settings -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+  </PropertyGroup>
+
+</Project>

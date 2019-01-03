@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28306.52
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IxMilia.LinearAlgebra", "IxMilia.LinearAlgebra\IxMilia.LinearAlgebra.csproj", "{6BB4B2CB-E417-45E1-9A12-41633986AD79}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IxMilia.LinearAlgebra.Test", "IxMilia.LinearAlgebra.Test\IxMilia.LinearAlgebra.Test.csproj", "{8DDA1C46-7A6A-46A6-8AAB-E923E46BA19F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6BB4B2CB-E417-45E1-9A12-41633986AD79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BB4B2CB-E417-45E1-9A12-41633986AD79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BB4B2CB-E417-45E1-9A12-41633986AD79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BB4B2CB-E417-45E1-9A12-41633986AD79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DDA1C46-7A6A-46A6-8AAB-E923E46BA19F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DDA1C46-7A6A-46A6-8AAB-E923E46BA19F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DDA1C46-7A6A-46A6-8AAB-E923E46BA19F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DDA1C46-7A6A-46A6-8AAB-E923E46BA19F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D2AB7FE3-C5F3-412D-AB7A-F1D7C4457EE7}
+	EndGlobalSection
+EndGlobal
