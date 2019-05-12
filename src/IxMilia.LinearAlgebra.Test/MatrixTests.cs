@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using IxMilia.LinearAlgebra.Geometry;
+using Xunit;
 
 namespace IxMilia.LinearAlgebra.Test
 {
@@ -64,6 +65,18 @@ namespace IxMilia.LinearAlgebra.Test
                     0.2, -0.3, 0),
                     inv);
             }
+        }
+
+        [Fact]
+        public void NormTest()
+        {
+            Assert.Equal(5.0, new Vector2(3.0, 4.0).Norm(2));
+        }
+
+        [Fact]
+        public void MaxNormTest()
+        {
+            Assert.Equal(5.0, new Vector3(1.0, 5.0, 2.0).MaxNorm());
         }
     }
 }
