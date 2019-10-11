@@ -12,8 +12,16 @@
 
         public override double this[int row, int column]
         {
-            get { return Parent[row, column]; }
-            set { Parent[row, column] = value; }
+            get
+            {
+                CheckIndexAccess(row, column);
+                return Rows == 1 ? GetValue(column) : GetValue(row);
+            }
+            set
+            {
+                CheckIndexAccess(row, column);
+                SetValue(Rows == 1 ? column : row, value);
+            }
         }
 
         protected MatrixVector(Matrix parent)

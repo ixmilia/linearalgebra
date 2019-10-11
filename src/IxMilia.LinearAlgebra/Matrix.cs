@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 
 namespace IxMilia.LinearAlgebra
@@ -393,6 +394,66 @@ namespace IxMilia.LinearAlgebra
             }
 
             return result;
+        }
+
+        public MatrixRowVector[] AsRows()
+        {
+            return Enumerable.Range(0, Rows).Select(r => new MatrixRowVector(this, r)).ToArray();
+        }
+
+        public MatrixColumnVector[] AsColumns()
+        {
+            return Enumerable.Range(0, Columns).Select(c => new MatrixColumnVector(this, c)).ToArray();
+        }
+
+        public static Matrix FromRows(params MatrixRowVector[] rows)
+        {
+            if (rows.Length == 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(rows));
+            }
+
+            var columnCount = rows[0].Columns;
+            var values = new double[rows.Length, columnCount];
+            for (int r = 0; r < rows.Length; r++)
+            {
+                if (rows[r].Columns != columnCount)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(Columns), "Column counts are inconsistent.");
+                }
+
+                for (int c = 0; c < columnCount; c++)
+                {
+                    values[r, c] = rows[r][c];
+                }
+            }
+
+            return new Matrix(values);
+        }
+
+        public static Matrix FromColumns(params MatrixColumnVector[] columns)
+        {
+            if (columns.Length == 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(columns));
+            }
+
+            var rowCount = columns[0].Rows;
+            var values = new double[rowCount, columns.Length];
+            for (int c = 0; c < columns.Length; c++)
+            {
+                if (columns[c].Rows != rowCount)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(Rows), "Row counts are inconsistent.");
+                }
+
+                for (int r = 0; r < rowCount; r++)
+                {
+                    values[r, c] = columns[c][r];
+                }
+            }
+
+            return new Matrix(values);
         }
 
         protected static bool AreClose(double a, double b)

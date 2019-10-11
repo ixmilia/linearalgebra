@@ -78,5 +78,62 @@ namespace IxMilia.LinearAlgebra.Test
         {
             Assert.Equal(5.0, new Vector3(1.0, 5.0, 2.0).MaxNorm());
         }
+
+        [Fact]
+        public void AsRowsTest()
+        {
+            var matrix = new Matrix(3, 2,
+                1, 2,
+                3, 4,
+                5, 6);
+            var rows = matrix.AsRows();
+            Assert.Equal(3, rows.Length);
+            Assert.Equal(new Matrix(1, 2, 1, 2), rows[0]);
+            Assert.Equal(new Matrix(1, 2, 3, 4), rows[1]);
+            Assert.Equal(new Matrix(1, 2, 5, 6), rows[2]);
+        }
+
+        [Fact]
+        public void AsColumnsTest()
+        {
+            var matrix = new Matrix(3, 2,
+                1, 2,
+                3, 4,
+                5, 6);
+            var columns = matrix.AsColumns();
+            Assert.Equal(2, columns.Length);
+            Assert.Equal(new Matrix(3, 1,
+                    1,
+                    3,
+                    5), columns[0]);
+            Assert.Equal(new Matrix(3, 1,
+                    2,
+                    4,
+                    6), columns[1]);
+        }
+
+        [Fact]
+        public void FromRowsTest()
+        {
+            var matrix = new Matrix(3, 2,
+                1, 2,
+                3, 4,
+                5, 6);
+            var rows = matrix.AsRows();
+            var reconstructed = Matrix.FromRows(rows);
+            Assert.Equal(matrix, reconstructed);
+        }
+
+        [Fact]
+        public void FromColumnsTest()
+        {
+            var matrix = new Matrix(3, 2,
+                1, 2,
+                3, 4,
+                5, 6);
+            var columns = matrix.AsColumns();
+            var reconstructed = Matrix.FromColumns(columns);
+            Assert.Equal(matrix, reconstructed);
+        }
     }
 }
