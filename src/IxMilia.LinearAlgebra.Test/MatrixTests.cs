@@ -135,5 +135,21 @@ namespace IxMilia.LinearAlgebra.Test
             var reconstructed = Matrix.FromColumns(columns);
             Assert.Equal(matrix, reconstructed);
         }
+
+        [Fact]
+        public void AdditionTest()
+        {
+            var m1 = new Matrix(1, 2, 1, 2);
+            var m2 = new Matrix(1, 2, 3, 4);
+            Assert.Equal(new Matrix(1, 2, 1 + 3, 2 + 4), m1 + m2);
+        }
+
+        [Fact]
+        public void SubtractionTest()
+        {
+            var m1 = new Matrix(1, 2, 1, 2);
+            var m2 = new Matrix(1, 2, 3, 4);
+            Assert.Equal(new Matrix(1, 2, 1 - 3, 2 - 4), m1 - m2);
+        }
     }
 }

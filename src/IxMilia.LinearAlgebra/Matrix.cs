@@ -520,6 +520,64 @@ namespace IxMilia.LinearAlgebra
             return new Matrix(3, 1, rx, ry, rz);
         }
 
+        public static Matrix operator +(Matrix left, Matrix right)
+        {
+            if (left == null)
+            {
+                throw new ArgumentNullException(nameof(left));
+            }
+
+            if (right == null)
+            {
+                throw new ArgumentNullException(nameof(right));
+            }
+
+            if (left.Rows != right.Rows || left.Columns != right.Columns)
+            {
+                throw new InvalidOperationException("Matrices must be of the same size.");
+            }
+
+            var values = new double[left.Rows, left.Columns];
+            for (int r = 0; r < left.Rows; r++)
+            {
+                for (int c = 0; c < left.Columns; c++)
+                {
+                    values[r, c] = left[r, c] + right[r, c];
+                }
+            }
+
+            return new Matrix(values);
+        }
+
+        public static Matrix operator -(Matrix left, Matrix right)
+        {
+            if (left == null)
+            {
+                throw new ArgumentNullException(nameof(left));
+            }
+
+            if (right == null)
+            {
+                throw new ArgumentNullException(nameof(right));
+            }
+
+            if (left.Rows != right.Rows || left.Columns != right.Columns)
+            {
+                throw new InvalidOperationException("Matrices must be of the same size.");
+            }
+
+            var values = new double[left.Rows, left.Columns];
+            for (int r = 0; r < left.Rows; r++)
+            {
+                for (int c = 0; c < left.Columns; c++)
+                {
+                    values[r, c] = left[r, c] - right[r, c];
+                }
+            }
+
+            return new Matrix(values);
+        }
+
         public static Matrix operator *(Matrix left, Matrix right)
         {
             if (left == null)
