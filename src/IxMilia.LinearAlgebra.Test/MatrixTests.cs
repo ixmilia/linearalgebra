@@ -166,5 +166,42 @@ namespace IxMilia.LinearAlgebra.Test
                 6, 7);
             Assert.Equal(expected, inc);
         }
+
+        [Fact]
+        public void MapRowTest()
+        {
+            var matrix = new Matrix(3, 2,
+                1, 2,
+                3, 4,
+                5, 6);
+            var add = new Matrix(1, 2,
+                1, 2);
+            var result = matrix.MapRow(row => row + add);
+            var expected = new Matrix(3, 2,
+                2, 4,
+                4, 6,
+                6, 8);
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void MapColumnTest()
+        {
+            var matrix = new Matrix(3, 2,
+                1, 2,
+                3, 4,
+                5, 6);
+            var add = new Matrix(3, 1,
+                1,
+                2,
+                3);
+            var result = matrix.MapColumn(column => column + add);
+            var expected =
+                new Matrix(3, 2,
+                2, 3,
+                5, 6,
+                8, 9);
+            Assert.Equal(expected, result);
+        }
     }
 }

@@ -415,6 +415,28 @@ namespace IxMilia.LinearAlgebra
             return new Matrix(values);
         }
 
+        public Matrix MapRow(Func<MatrixRowVector, Matrix> action)
+        {
+            return MapRow((row, _i) => action(row));
+        }
+
+        public Matrix MapRow(Func<MatrixRowVector, int, Matrix> action)
+        {
+            var newRows = AsRows().Select((row, i) => action(row, i)).ToArray();
+            return FromRows(newRows);
+        }
+
+        public Matrix MapColumn(Func<MatrixColumnVector, Matrix> action)
+        {
+            return MapColumn((column, _i) => action(column));
+        }
+
+        public Matrix MapColumn(Func<MatrixColumnVector, int, Matrix> action)
+        {
+            var newColumns = AsColumns().Select((column, i) => action(column, i)).ToArray();
+            return FromColumns(newColumns);
+        }
+
         public MatrixRowVector[] AsRows()
         {
             return Enumerable.Range(0, Rows).Select(r => new MatrixRowVector(this, r)).ToArray();
