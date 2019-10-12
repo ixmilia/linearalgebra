@@ -151,5 +151,20 @@ namespace IxMilia.LinearAlgebra.Test
             var m2 = new Matrix(1, 2, 3, 4);
             Assert.Equal(new Matrix(1, 2, 1 - 3, 2 - 4), m1 - m2);
         }
+
+        [Fact]
+        public void MapValueTest()
+        {
+            var matrix = new Matrix(3, 2,
+                1, 2,
+                3, 4,
+                5, 6);
+            var inc = matrix.MapValue(v => v + 1.0);
+            var expected = new Matrix(3, 2,
+                2, 3,
+                4, 5,
+                6, 7);
+            Assert.Equal(expected, inc);
+        }
     }
 }
