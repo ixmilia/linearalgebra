@@ -6,6 +6,18 @@ namespace IxMilia.LinearAlgebra.Test
     public class MatrixTests : TestBase
     {
         [Fact]
+        public void ToStringTest()
+        {
+            var matrix = new Matrix(2, 3,
+                1, 2, 3,
+                4, 5, 6);
+            var expected = NormalizeNewlines(@"
+[[1, 2, 3]
+ [4, 5, 6]]").Trim();
+            Assert.Equal(expected, matrix.ToString());
+        }
+
+        [Fact]
         public void MultiplicationTest()
         {
             var left = new Matrix(2, 3,

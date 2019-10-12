@@ -33,5 +33,10 @@ namespace IxMilia.LinearAlgebra.Test
                 }
             }
         }
+
+        public static string NormalizeNewlines(string str)
+        {
+            return str.Replace("\r", "");
+        }
     }
 }

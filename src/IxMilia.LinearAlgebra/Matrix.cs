@@ -518,6 +518,11 @@ namespace IxMilia.LinearAlgebra
             sb.Append("[");
             for (int r = 0; r < Rows; r++)
             {
+                if (r != 0)
+                {
+                    sb.Append(" ");
+                }
+
                 sb.Append("[");
                 for (int c = 0; c < Columns; c++)
                 {
