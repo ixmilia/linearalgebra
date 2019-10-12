@@ -406,7 +406,7 @@ namespace IxMilia.LinearAlgebra
             return Enumerable.Range(0, Columns).Select(c => new MatrixColumnVector(this, c)).ToArray();
         }
 
-        public static Matrix FromRows(params MatrixRowVector[] rows)
+        public static Matrix FromRows(Matrix[] rows)
         {
             if (rows.Length == 0)
             {
@@ -417,6 +417,11 @@ namespace IxMilia.LinearAlgebra
             var values = new double[rows.Length, columnCount];
             for (int r = 0; r < rows.Length; r++)
             {
+                if (!rows[r].IsRowVector)
+                {
+                    throw new ArgumentException(nameof(rows), "Must be a row vector.");
+                }
+
                 if (rows[r].Columns != columnCount)
                 {
                     throw new ArgumentOutOfRangeException(nameof(Columns), "Column counts are inconsistent.");
@@ -424,14 +429,14 @@ namespace IxMilia.LinearAlgebra
 
                 for (int c = 0; c < columnCount; c++)
                 {
-                    values[r, c] = rows[r][c];
+                    values[r, c] = rows[r][0, c];
                 }
             }
 
             return new Matrix(values);
         }
 
-        public static Matrix FromColumns(params MatrixColumnVector[] columns)
+        public static Matrix FromColumns(Matrix[] columns)
         {
             if (columns.Length == 0)
             {
@@ -442,6 +447,11 @@ namespace IxMilia.LinearAlgebra
             var values = new double[rowCount, columns.Length];
             for (int c = 0; c < columns.Length; c++)
             {
+                if (!columns[c].IsColumnVector)
+                {
+                    throw new ArgumentException(nameof(columns), "Must be a column vector.");
+                }
+
                 if (columns[c].Rows != rowCount)
                 {
                     throw new ArgumentOutOfRangeException(nameof(Rows), "Row counts are inconsistent.");
@@ -449,7 +459,7 @@ namespace IxMilia.LinearAlgebra
 
                 for (int r = 0; r < rowCount; r++)
                 {
-                    values[r, c] = columns[c][r];
+                    values[r, c] = columns[c][r, 0];
                 }
             }
 
