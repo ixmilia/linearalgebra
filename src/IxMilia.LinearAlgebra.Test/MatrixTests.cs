@@ -18,6 +18,18 @@ namespace IxMilia.LinearAlgebra.Test
         }
 
         [Fact]
+        public void ConstructorApiTest()
+        {
+            var matrix = new Matrix(
+                new[] { new[] { 1.0, 2.0, 3.0 },
+                        new[] { 4.0, 5.0, 6.0 } });
+            var expected = new Matrix(2, 3,
+                1, 2, 3,
+                4, 5, 6);
+            Assert.Equal(expected, matrix);
+        }
+
+        [Fact]
         public void MultiplicationTest()
         {
             var left = new Matrix(2, 3,

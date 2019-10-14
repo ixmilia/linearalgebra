@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -344,6 +345,47 @@ namespace IxMilia.LinearAlgebra
                 for (int c = 0; c < columns; c++)
                 {
                     _values[r, c] = values[r * columns + c];
+                }
+            }
+        }
+
+        public Matrix(IEnumerable<IEnumerable<double>> values)
+        {
+            var rows = new List<List<double>>();
+            foreach (var row in values)
+            {
+                var rowList = row.ToList();
+                if (rows.Count > 0)
+                {
+                    if (rowList.Count != rows[0].Count)
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(values), "All rows must have the same number of values");
+                    }
+                }
+
+                rows.Add(rowList);
+            }
+
+            if (rows.Count == 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(values), "Must contain at least 1 row.");
+            }
+
+            Rows = rows.Count;
+            Columns = rows[0].Count;
+
+            if (Columns == 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(values), "Must contain at least 1 column.");
+            }
+
+            _values = new double[Rows, Columns];
+
+            for (int r = 0; r < Rows; r++)
+            {
+                for (int c = 0; c < Columns; c++)
+                {
+                    _values[r, c] = rows[r][c];
                 }
             }
         }
