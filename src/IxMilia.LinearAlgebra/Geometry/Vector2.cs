@@ -81,5 +81,26 @@ namespace IxMilia.LinearAlgebra.Geometry
         public static Vector2 Infinity => new Vector2(0, 0, 0); // TODO: should this be 0, 0, 1?
 
         public static Vector2 ZeroVector => new Vector2(0.0, 0.0);
+
+        public static Matrix CreateScale(double scale)
+        {
+            return CreateScale(scale, scale);
+        }
+
+        public static Matrix CreateScale(double sx, double sy)
+        {
+            return new Matrix(3, 3,
+                sx, 0.0, 0.0,
+                0.0, sy, 0.0,
+                0.0, 0.0, 1.0);
+        }
+
+        public static Matrix CreateTranslate(double dx, double dy)
+        {
+            return new Matrix(3, 3,
+                1.0, 0.0, dx,
+                0.0, 1.0, dy,
+                0.0, 0.0, 1.0);
+        }
     }
 }
