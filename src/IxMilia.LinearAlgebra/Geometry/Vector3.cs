@@ -129,5 +129,28 @@ namespace IxMilia.LinearAlgebra.Geometry
         public static Vector3 Infinity => new Vector3(0.0, 0.0, 0.0, 0.0);
 
         public static Vector3 ZeroVector => new Vector3(0.0, 0.0, 0.0);
+
+        public static Matrix CreateScale(double scale)
+        {
+            return CreateScale(scale, scale, scale);
+        }
+
+        public static Matrix CreateScale(double sx, double sy, double sz)
+        {
+            return new Matrix(4, 4,
+                sx, 0.0, 0.0, 0.0,
+                0.0, sy, 0.0, 0.0,
+                0.0, 0.0, sz, 0.0,
+                0.0, 0.0, 0.0, 1.0);
+        }
+
+        public static Matrix CreateTranslate(double dx, double dy, double dz)
+        {
+            return new Matrix(4, 4,
+                1.0, 0.0, 0.0, dx,
+                0.0, 1.0, 0.0, dy,
+                0.0, 0.0, 1.0, dz,
+                0.0, 0.0, 0.0, 1.0);
+        }
     }
 }

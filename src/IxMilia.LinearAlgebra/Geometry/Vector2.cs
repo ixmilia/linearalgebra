@@ -79,5 +79,7 @@ namespace IxMilia.LinearAlgebra.Geometry
         }
 
         public static Vector2 Infinity => new Vector2(0, 0, 0); // TODO: should this be 0, 0, 1?
+
+        public static Vector2 ZeroVector => new Vector2(0.0, 0.0);
     }
 }
