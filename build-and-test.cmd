@@ -25,7 +25,7 @@ goto error
 :argsdone
 
 :: build
-set SOLUTION=%~dp0src\IxMilia.LinearAlgebra.sln
+set SOLUTION=%~dp0IxMilia.LinearAlgebra.sln
 dotnet restore %SOLUTION%
 if errorlevel 1 exit /b 1
 dotnet build %SOLUTION% -c %configuration%

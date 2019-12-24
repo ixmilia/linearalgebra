@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28306.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IxMilia.LinearAlgebra", "IxMilia.LinearAlgebra\IxMilia.LinearAlgebra.csproj", "{6BB4B2CB-E417-45E1-9A12-41633986AD79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IxMilia.LinearAlgebra", "src\IxMilia.LinearAlgebra\IxMilia.LinearAlgebra.csproj", "{6BB4B2CB-E417-45E1-9A12-41633986AD79}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IxMilia.LinearAlgebra.Test", "IxMilia.LinearAlgebra.Test\IxMilia.LinearAlgebra.Test.csproj", "{8DDA1C46-7A6A-46A6-8AAB-E923E46BA19F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IxMilia.LinearAlgebra.Test", "src\IxMilia.LinearAlgebra.Test\IxMilia.LinearAlgebra.Test.csproj", "{8DDA1C46-7A6A-46A6-8AAB-E923E46BA19F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

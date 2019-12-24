@@ -23,7 +23,7 @@ while [ $# -gt 0 ]; do
 done
 
 # build
-SOLUTION=$_SCRIPT_DIR/src/IxMilia.LinearAlgebra.sln
+SOLUTION=$_SCRIPT_DIR/IxMilia.LinearAlgebra.sln
 dotnet restore $SOLUTION
 dotnet build $SOLUTION -c $CONFIGURATION
 
