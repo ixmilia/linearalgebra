@@ -10,7 +10,7 @@
     <PackageId>IxMilia.LinearAlgebra</PackageId>
     <PackageTags>Linear Algebra</PackageTags>
     <PackageProjectUrl>https://github.com/ixmilia/linearalgebra</PackageProjectUrl>
-    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
 
     <!-- SourceLink settings -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
