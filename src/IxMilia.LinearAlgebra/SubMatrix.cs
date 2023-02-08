@@ -2,17 +2,17 @@
 
 namespace IxMilia.LinearAlgebra
 {
-    public class SubMatrix : Matrix
+    public class SubMatrix<T> : Matrix<T>
     {
-        public Matrix Parent { get; }
+        public Matrix<T> Parent { get; }
 
         public int RowOffset { get; }
         public override int Rows { get; }
-
+        
         public int ColumnOffset { get; }
         public override int Columns { get; }
 
-        public override double this[int row, int column]
+        public override T this[int row, int column]
         {
             get
             {
@@ -33,7 +33,8 @@ namespace IxMilia.LinearAlgebra
             }
         }
 
-        public SubMatrix(Matrix parent, int rowOffset, int rows, int columnOffset, int columns)
+        public SubMatrix(Matrix<T> parent, int rowOffset, int rows, int columnOffset, int columns)
+            : base(parent.Computer)
         {
             if (parent == null)
             {

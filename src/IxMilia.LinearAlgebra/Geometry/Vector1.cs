@@ -1,76 +1,28 @@
-﻿using System;
-
-namespace IxMilia.LinearAlgebra.Geometry
+﻿namespace IxMilia.LinearAlgebra.Geometry
 {
-    public class Vector1 : Matrix
+    public static class Vector1
     {
-        public double X
+        public static Vector1<int> CreateInt32(int x) => new Vector1<int>(Int32AlgebraicComputer.Instance, x);
+        public static Vector1<int> CreateInt32(int x, int w) => new Vector1<int>(Int32AlgebraicComputer.Instance, x, w);
+        public static Vector1<double> CreateDouble(double x) => new Vector1<double>(DoubleAlgebraicComputer.Instance, x);
+        public static Vector1<double> CreateDouble(double x, double w) => new Vector1<double>(DoubleAlgebraicComputer.Instance, x, w);
+
+        public static Vector1<T> CreateInfinity<T>(IAlgebraicComputer<T> computer) => new Vector1<T>(computer, computer.Zero, computer.Zero); // TODO: should this be 0, 1?
+
+        public static Vector1<T> CreateZeroVector<T>(IAlgebraicComputer<T> computer) => new Vector1<T>(computer, computer.Zero);
+
+        public static Matrix<T> CreateScale<T>(IAlgebraicComputer<T> computer, T sx)
         {
-            get { return this[0, 0]; }
-            set { this[0, 0] = value; }
+            return new Matrix<T>(computer, 2, 2,
+                sx, computer.Zero,
+                computer.Zero, computer.One);
         }
 
-        public double W
+        public static Matrix<T> CreateTranslate<T>(IAlgebraicComputer<T> computer, T dx)
         {
-            get { return this[1, 0]; }
-            set { this[1, 0] = value; }
-        }
-
-        public double LengthSquared => X * X;
-
-        public double Length => Math.Sqrt(LengthSquared);
-
-        public bool IsInfinity => W == 0.0;
-
-        private Vector1()
-            : base(2, 1)
-        {
-        }
-
-        public Vector1(double x)
-            : this(x, 1.0)
-        {
-        }
-
-        public Vector1(double x, double w)
-            : this()
-        {
-            X = x;
-            W = w;
-        }
-
-        public void TryNormalize()
-        {
-            if (W == 0.0)
-            {
-                return;
-            }
-
-            X /= W;
-            W = 1.0;
-        }
-
-        public override string ToString()
-        {
-            return $"({X})";
-        }
-
-        public static Vector1 Infinity => new Vector1(0, 0); // TODO: should this be 0, 1?
-
-        public static Vector1 ZeroVector => new Vector1(0.0);
-
-        public static Matrix CreateScale(double sx)
-        {
-            return new Matrix(2, 2,
-                sx, 0.0,
-                0.0, 1.0);
-        }
-
-        public static Matrix CreateTranslate(double dx)
-        {
-            return new Matrix(2, 2,
-                1.0, dx,
-                0.0, 1.0);
+            return new Matrix<T>(computer, 2, 2,
+                computer.One, dx,
+                computer.Zero, computer.One);
         }
     }
 }

@@ -2,16 +2,16 @@ using System;
 
 namespace IxMilia.LinearAlgebra
 {
-    public class MatrixWithColumnVector : Matrix
+    public class MatrixWithColumnVector<T> : Matrix<T>
     {
-        public Matrix Parent { get; }
-        public Matrix ColumnVector { get; }
+        public Matrix<T> Parent { get; }
+        public Matrix<T> ColumnVector { get; }
         public int ColumnVectorIndex { get; }
 
         public override int Rows => Parent.Rows;
         public override int Columns => Parent.Columns;
 
-        public override double this[int row, int column]
+        public override T this[int row, int column]
         {
             get
             {
@@ -34,7 +34,8 @@ namespace IxMilia.LinearAlgebra
             }
         }
 
-        public MatrixWithColumnVector(Matrix parentMatrix, Matrix columnVector, int columnVectorIndex)
+        public MatrixWithColumnVector(Matrix<T> parentMatrix, Matrix<T> columnVector, int columnVectorIndex)
+            : base(parentMatrix.Computer)
         {
             if (parentMatrix == null)
             {

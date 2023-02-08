@@ -2,68 +2,15 @@
 
 namespace IxMilia.LinearAlgebra.Geometry
 {
-    public class Vector2 : Matrix
+    public static class Vector2
     {
-        public double X
-        {
-            get { return this[0, 0]; }
-            set { this[0, 0] = value; }
-        }
+        public static Vector2<int> CreateInt32(int x, int y) => new Vector2<int>(Int32AlgebraicComputer.Instance, x, y);
+        public static Vector2<int> CreateInt32(int x, int y, int w) => new Vector2<int>(Int32AlgebraicComputer.Instance, x, y, w);
 
-        public double Y
-        {
-            get { return this[1, 0]; }
-            set { this[1, 0] = value; }
-        }
+        public static Vector2<double> CreateDouble(double x, double y) => new Vector2<double>(DoubleAlgebraicComputer.Instance, x, y);
+        public static Vector2<double> CreateDouble(double x, double y, double w) => new Vector2<double>(DoubleAlgebraicComputer.Instance, x, y, w);
 
-        public double W
-        {
-            get { return this[2, 0]; }
-            set { this[2, 0] = value; }
-        }
-
-        public double LengthSquared => X * X + Y * Y;
-
-        public double Length => Math.Sqrt(LengthSquared);
-
-        public bool IsInfinity => W == 0.0;
-
-        private Vector2()
-            : base(3, 1)
-        {
-        }
-
-        public Vector2(double x, double y)
-            : this(x, y, 1.0)
-        {
-        }
-
-        public Vector2(double x, double y, double w)
-            : this()
-        {
-            X = x;
-            Y = y;
-            W = w;
-        }
-
-        public void TryNormalize()
-        {
-            if (W == 0.0)
-            {
-                return;
-            }
-
-            X /= W;
-            Y /= W;
-            W = 1.0;
-        }
-
-        public override string ToString()
-        {
-            return $"({X}, {Y})";
-        }
-
-        public static Vector2 Cross(Vector2 v1, Vector2 v2)
+        public static Vector2<T> Cross<T>(Vector2<T> v1, Vector2<T> v2)
         {
             if (v1 == null)
             {
@@ -75,32 +22,32 @@ namespace IxMilia.LinearAlgebra.Geometry
                 throw new ArgumentNullException(nameof(v2));
             }
 
-            return Cross(v1.X, v1.Y, v1.W, v2.X, v2.Y, v2.W).AsVector2();
+            return Matrix.Cross(v1.Computer, v1.X, v1.Y, v1.W, v2.X, v2.Y, v2.W).AsVector2();
         }
 
-        public static Vector2 Infinity => new Vector2(0, 0, 0); // TODO: should this be 0, 0, 1?
+        public static Vector2<T> CreateInfinity<T>(IAlgebraicComputer<T> computer) => new Vector2<T>(computer, computer.Zero, computer.Zero, computer.Zero); // TODO: should this be 0, 0, 1?
 
-        public static Vector2 ZeroVector => new Vector2(0.0, 0.0);
+        public static Vector2<T> CreateZeroVector<T>(IAlgebraicComputer<T> computer) => new Vector2<T>(computer, computer.Zero, computer.Zero);
 
-        public static Matrix CreateScale(double scale)
+        public static Matrix<T> CreateScale<T>(IAlgebraicComputer<T> computer, T scale)
         {
-            return CreateScale(scale, scale);
+            return CreateScale(computer, scale, scale);
         }
 
-        public static Matrix CreateScale(double sx, double sy)
+        public static Matrix<T> CreateScale<T>(IAlgebraicComputer<T> computer, T sx, T sy)
         {
-            return new Matrix(3, 3,
-                sx, 0.0, 0.0,
-                0.0, sy, 0.0,
-                0.0, 0.0, 1.0);
+            return new Matrix<T>(computer, 3, 3,
+                sx, computer.Zero, computer.Zero,
+                computer.Zero, sy, computer.Zero,
+                computer.Zero, computer.Zero, computer.One);
         }
 
-        public static Matrix CreateTranslate(double dx, double dy)
+        public static Matrix<T> CreateTranslate<T>(IAlgebraicComputer<T> computer, T dx, T dy)
         {
-            return new Matrix(3, 3,
-                1.0, 0.0, dx,
-                0.0, 1.0, dy,
-                0.0, 0.0, 1.0);
+            return new Matrix<T>(computer, 3, 3,
+                computer.One, computer.Zero, dx,
+                computer.Zero, computer.One, dy,
+                computer.Zero, computer.Zero, computer.One);
         }
     }
 }

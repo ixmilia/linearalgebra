@@ -1,15 +1,15 @@
 ﻿namespace IxMilia.LinearAlgebra
 {
-    public class MinorMatrix : Matrix
+    public class MinorMatrix<T> : Matrix<T>
     {
-        public Matrix Parent { get; }
+        public Matrix<T> Parent { get; }
         public int MinorRow { get; }
         public int MinorColumn { get; }
 
         public override int Rows => Parent.Rows - 1;
         public override int Columns => Parent.Columns - 1;
 
-        public override double this[int row, int column]
+        public override T this[int row, int column]
         {
             get
             {
@@ -26,8 +26,8 @@
             }
         }
 
-        public MinorMatrix(Matrix parent, int minorRow, int minorColumn)
-            : base()
+        public MinorMatrix(Matrix<T> parent, int minorRow, int minorColumn)
+            : base(parent.Computer)
         {
             Parent = parent;
             MinorRow = minorRow;

@@ -2,18 +2,26 @@
 
 namespace IxMilia.LinearAlgebra.Test
 {
-    internal class MatrixComparer : IEqualityComparer<Matrix>
+    internal class MatrixComparer<T> : IEqualityComparer<Matrix<T>>
     {
-        public static readonly MatrixComparer Instance = new MatrixComparer();
-
-        public bool Equals(Matrix x, Matrix y)
+        public bool Equals(Matrix<T> x, Matrix<T> y)
         {
             return x == y;
         }
 
-        public int GetHashCode(Matrix obj)
+        public int GetHashCode(Matrix<T> obj)
         {
             return obj.GetHashCode();
         }
+    }
+
+    internal class DoubleMatrixComparer : MatrixComparer<double>
+    {
+        public static DoubleMatrixComparer Instance = new DoubleMatrixComparer();
+    }
+
+    internal class Int32MatrixComparer : MatrixComparer<int>
+    {
+        public static Int32MatrixComparer Instance = new Int32MatrixComparer();
     }
 }

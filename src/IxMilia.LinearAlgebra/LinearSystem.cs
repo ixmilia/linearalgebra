@@ -2,12 +2,12 @@ using System;
 
 namespace IxMilia.LinearAlgebra
 {
-    public class LinearSystem
+    public class LinearSystem<T>
     {
-        public Matrix Coefficients { get; }
-        public Matrix Constants { get; }
+        public Matrix<T> Coefficients { get; }
+        public Matrix<T> Constants { get; }
 
-        public LinearSystem(Matrix coefficients, Matrix constants)
+        public LinearSystem(Matrix<T> coefficients, Matrix<T> constants)
         {
             if (coefficients == null)
             {
@@ -33,7 +33,7 @@ namespace IxMilia.LinearAlgebra
             Constants = constants;
         }
 
-        public Matrix Solve()
+        public Matrix<T> Solve()
         {
             var inv = Coefficients.Inverse;
             if (inv == null)

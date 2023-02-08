@@ -1,16 +1,16 @@
 ﻿namespace IxMilia.LinearAlgebra
 {
-    public abstract class MatrixVector : Matrix
+    public abstract class MatrixVector<T> : Matrix<T>
     {
-        public Matrix Parent { get; }
-
-        public double this[int i]
+        public Matrix<T> Parent { get; }
+        
+        public T this[int i]
         {
             get { return GetValue(i); }
             set { SetValue(i, value); }
         }
 
-        public override double this[int row, int column]
+        public override T this[int row, int column]
         {
             get
             {
@@ -24,12 +24,13 @@
             }
         }
 
-        protected MatrixVector(Matrix parent)
+        protected MatrixVector(Matrix<T> parent)
+            : base(parent.Computer)
         {
             Parent = parent;
         }
 
-        protected abstract double GetValue(int i);
-        protected abstract void SetValue(int i, double value);
+        protected abstract T GetValue(int i);
+        protected abstract void SetValue(int i, T value);
     }
 }

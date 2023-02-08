@@ -1,19 +1,20 @@
 ﻿namespace IxMilia.LinearAlgebra
 {
-    public class TransposeMatrix : Matrix
+    public class TransposeMatrix<T> : Matrix<T>
     {
-        public Matrix Parent { get; }
+        public Matrix<T> Parent { get; }
 
         public override int Rows => Parent.Columns;
         public override int Columns => Parent.Rows;
 
-        public override double this[int row, int column]
+        public override T this[int row, int column]
         {
             get { return Parent[column, row]; }
             set { Parent[column, row] = value; }
         }
 
-        public TransposeMatrix(Matrix parent)
+        public TransposeMatrix(Matrix<T> parent)
+            : base(parent.Computer)
         {
             Parent = parent;
         }

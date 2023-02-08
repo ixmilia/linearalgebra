@@ -8,7 +8,7 @@ namespace IxMilia.LinearAlgebra.Test
         [Fact]
         public void ToStringTest()
         {
-            var matrix = new Matrix(2, 3,
+            var matrix = Matrix.CreateInt32(2, 3,
                 1, 2, 3,
                 4, 5, 6);
             var expected = NormalizeNewlines(@"
@@ -20,10 +20,10 @@ namespace IxMilia.LinearAlgebra.Test
         [Fact]
         public void ConstructorApiTest()
         {
-            var matrix = new Matrix(
-                new[] { new[] { 1.0, 2.0, 3.0 },
-                        new[] { 4.0, 5.0, 6.0 } });
-            var expected = new Matrix(2, 3,
+            var matrix = Matrix.CreateInt32(
+                new[] { new[] { 1, 2, 3 },
+                        new[] { 4, 5, 6 } });
+            var expected = Matrix.CreateInt32(2, 3,
                 1, 2, 3,
                 4, 5, 6);
             Assert.Equal(expected, matrix);
@@ -32,17 +32,17 @@ namespace IxMilia.LinearAlgebra.Test
         [Fact]
         public void MultiplicationTest()
         {
-            var left = new Matrix(2, 3,
+            var left = Matrix.CreateInt32(2, 3,
                 1, 2, 3,
                 4, 5, 6);
 
-            var right = new Matrix(3, 2,
+            var right = Matrix.CreateInt32(3, 2,
                 7, 8,
                 9, 10,
                 11, 12);
 
             var result = left * right;
-            Assert.Equal(new Matrix(2, 2,
+            Assert.Equal(Matrix.CreateInt32(2, 2,
                 58, 64,
                 139, 154),
                 result);
@@ -51,22 +51,22 @@ namespace IxMilia.LinearAlgebra.Test
         [Fact]
         public void MinorMatrixTest()
         {
-            var matrix = new Matrix(3, 3,
+            var matrix = Matrix.CreateInt32(3, 3,
                 1, 2, 3,
                 4, 5, 6,
                 7, 8, 9);
-            var minor1 = new MinorMatrix(matrix, 0, 0);
-            Assert.Equal(new Matrix(2, 2,
+            var minor1 = new MinorMatrix<int>(matrix, 0, 0);
+            Assert.Equal(Matrix.CreateInt32(2, 2,
                 5, 6,
                 8, 9),
                 minor1,
-                MatrixComparer.Instance);
+                Int32MatrixComparer.Instance);
         }
 
         [Fact]
         public void DeterminantTest()
         {
-            var matrix = new Matrix(3, 3,
+            var matrix = Matrix.CreateDouble(3, 3,
                 -2, 2, -3,
                 -1, 1, 3,
                 2, 0, 1);
@@ -76,61 +76,59 @@ namespace IxMilia.LinearAlgebra.Test
         [Fact]
         public void InvertTest()
         {
-            using (new CloseToEqualityChecker())
-            {
-                var matrix = new Matrix(3, 3,
-                    3, 0, 2,
-                    2, 0, -2,
-                    0, 1, 1);
-                var inv = matrix.Inverse;
-                Assert.Equal(new Matrix(3, 3,
-                    0.2, 0.2, 0,
-                    -0.2, 0.3, 1,
-                    0.2, -0.3, 0),
-                    inv);
-            }
+            var matrix = Matrix.CreateDouble(3, 3,
+                3, 0, 2,
+                2, 0, -2,
+                0, 1, 1);
+            var inv = matrix.Inverse;
+            Assert.Equal(Matrix.CreateDouble(3, 3,
+                0.2, 0.2, 0,
+                -0.2, 0.3, 1,
+                0.2, -0.3, 0),
+                inv,
+                DoubleMatrixEqualityComparer.Instance);
         }
 
         [Fact]
         public void NormTest()
         {
-            Assert.Equal(5.0, new Vector2(3.0, 4.0).Norm(2));
+            Assert.Equal(5, Vector2.CreateInt32(3, 4).Norm(2));
         }
 
         [Fact]
         public void MaxNormTest()
         {
-            Assert.Equal(5.0, new Vector3(1.0, 5.0, 2.0).MaxNorm());
+            Assert.Equal(5, Vector3.CreateInt32(1, 5, 2).MaxNorm());
         }
 
         [Fact]
         public void AsRowsTest()
         {
-            var matrix = new Matrix(3, 2,
+            var matrix = Matrix.CreateInt32(3, 2,
                 1, 2,
                 3, 4,
                 5, 6);
             var rows = matrix.AsRows();
             Assert.Equal(3, rows.Length);
-            Assert.Equal(new Matrix(1, 2, 1, 2), rows[0]);
-            Assert.Equal(new Matrix(1, 2, 3, 4), rows[1]);
-            Assert.Equal(new Matrix(1, 2, 5, 6), rows[2]);
+            Assert.Equal(Matrix.CreateInt32(1, 2, 1, 2), rows[0]);
+            Assert.Equal(Matrix.CreateInt32(1, 2, 3, 4), rows[1]);
+            Assert.Equal(Matrix.CreateInt32(1, 2, 5, 6), rows[2]);
         }
 
         [Fact]
         public void AsColumnsTest()
         {
-            var matrix = new Matrix(3, 2,
+            var matrix = Matrix.CreateInt32(3, 2,
                 1, 2,
                 3, 4,
                 5, 6);
             var columns = matrix.AsColumns();
             Assert.Equal(2, columns.Length);
-            Assert.Equal(new Matrix(3, 1,
+            Assert.Equal(Matrix.CreateInt32(3, 1,
                     1,
                     3,
                     5), columns[0]);
-            Assert.Equal(new Matrix(3, 1,
+            Assert.Equal(Matrix.CreateInt32(3, 1,
                     2,
                     4,
                     6), columns[1]);
@@ -139,52 +137,52 @@ namespace IxMilia.LinearAlgebra.Test
         [Fact]
         public void FromRowsTest()
         {
-            var matrix = new Matrix(3, 2,
+            var matrix = Matrix.CreateInt32(3, 2,
                 1, 2,
                 3, 4,
                 5, 6);
             var rows = matrix.AsRows();
-            var reconstructed = Matrix.FromRows(rows);
+            var reconstructed = Matrix.FromRows(matrix.Computer, rows);
             Assert.Equal(matrix, reconstructed);
         }
 
         [Fact]
         public void FromColumnsTest()
         {
-            var matrix = new Matrix(3, 2,
+            var matrix = Matrix.CreateInt32(3, 2,
                 1, 2,
                 3, 4,
                 5, 6);
             var columns = matrix.AsColumns();
-            var reconstructed = Matrix.FromColumns(columns);
+            var reconstructed = Matrix.FromColumns(matrix.Computer, columns);
             Assert.Equal(matrix, reconstructed);
         }
 
         [Fact]
         public void AdditionTest()
         {
-            var m1 = new Matrix(1, 2, 1, 2);
-            var m2 = new Matrix(1, 2, 3, 4);
-            Assert.Equal(new Matrix(1, 2, 1 + 3, 2 + 4), m1 + m2);
+            var m1 = Matrix.CreateInt32(1, 2, 1, 2);
+            var m2 = Matrix.CreateInt32(1, 2, 3, 4);
+            Assert.Equal(Matrix.CreateInt32(1, 2, 1 + 3, 2 + 4), m1 + m2);
         }
 
         [Fact]
         public void SubtractionTest()
         {
-            var m1 = new Matrix(1, 2, 1, 2);
-            var m2 = new Matrix(1, 2, 3, 4);
-            Assert.Equal(new Matrix(1, 2, 1 - 3, 2 - 4), m1 - m2);
+            var m1 = Matrix.CreateInt32(1, 2, 1, 2);
+            var m2 = Matrix.CreateInt32(1, 2, 3, 4);
+            Assert.Equal(Matrix.CreateInt32(1, 2, 1 - 3, 2 - 4), m1 - m2);
         }
 
         [Fact]
         public void MapValueTest()
         {
-            var matrix = new Matrix(3, 2,
+            var matrix = Matrix.CreateInt32(3, 2,
                 1, 2,
                 3, 4,
                 5, 6);
-            var inc = matrix.MapValue(v => v + 1.0);
-            var expected = new Matrix(3, 2,
+            var inc = matrix.MapValue(v => v + 1);
+            var expected = Matrix.CreateInt32(3, 2,
                 2, 3,
                 4, 5,
                 6, 7);
@@ -194,14 +192,14 @@ namespace IxMilia.LinearAlgebra.Test
         [Fact]
         public void MapRowTest()
         {
-            var matrix = new Matrix(3, 2,
+            var matrix = Matrix.CreateInt32(3, 2,
                 1, 2,
                 3, 4,
                 5, 6);
-            var add = new Matrix(1, 2,
+            var add = Matrix.CreateInt32(1, 2,
                 1, 2);
             var result = matrix.MapRow(row => row + add);
-            var expected = new Matrix(3, 2,
+            var expected = Matrix.CreateInt32(3, 2,
                 2, 4,
                 4, 6,
                 6, 8);
@@ -211,17 +209,16 @@ namespace IxMilia.LinearAlgebra.Test
         [Fact]
         public void MapColumnTest()
         {
-            var matrix = new Matrix(3, 2,
+            var matrix = Matrix.CreateInt32(3, 2,
                 1, 2,
                 3, 4,
                 5, 6);
-            var add = new Matrix(3, 1,
+            var add = Matrix.CreateInt32(3, 1,
                 1,
                 2,
                 3);
             var result = matrix.MapColumn(column => column + add);
-            var expected =
-                new Matrix(3, 2,
+            var expected = Matrix.CreateInt32(3, 2,
                 2, 3,
                 5, 6,
                 8, 9);

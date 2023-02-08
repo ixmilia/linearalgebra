@@ -4,12 +4,12 @@ namespace IxMilia.LinearAlgebra
 {
     public static class NormExtensions
     {
-        public static bool IsVector(this Matrix m)
+        public static bool IsVector<T>(this Matrix<T> m)
         {
             return m.Columns == 1;
         }
 
-        public static double UnrootedNorm(this Matrix m, int p)
+        public static T UnrootedNorm<T>(this Matrix<T> m, int p)
         {
             if (!m.IsVector())
             {
@@ -21,22 +21,22 @@ namespace IxMilia.LinearAlgebra
                 throw new ArgumentException(nameof(p), $"`{nameof(p)}` must be greater than or equal to 1.");
             }
 
-            var result = 0.0;
+            var result = m.Computer.Zero;
             for (int i = 0; i < p; i++)
             {
-                result += Math.Pow(Math.Abs(m[i, 0]), p);
+                result = m.Computer.Add(result, m.Computer.Pow(m.Computer.AbsoluteValue(m[i, 0]), p));
             }
 
             return result;
         }
 
-        public static double Norm(this Matrix m, int p)
+        public static T Norm<T>(this Matrix<T> m, int p)
         {
             var unrooted = m.UnrootedNorm(p);
-            return Math.Pow(unrooted, 1.0 / p);
+            return m.Computer.Pow(unrooted, 1.0 / p);
         }
 
-        public static double MaxNorm(this Matrix m)
+        public static T MaxNorm<T>(this Matrix<T> m)
         {
             if (!m.IsVector())
             {
@@ -46,7 +46,7 @@ namespace IxMilia.LinearAlgebra
             var result = m[0, 0];
             for (int i = 1; i < m.Rows; i++)
             {
-                if (m[i, 0] > result)
+                if (m.Computer.IsGreater(m[i, 0], result))
                 {
                     result = m[i, 0];
                 }
@@ -55,19 +55,19 @@ namespace IxMilia.LinearAlgebra
             return result;
         }
 
-        public static double FrobeniusNorm(this Matrix m)
+        public static T FrobeniusNorm<T>(this Matrix<T> m)
         {
-            var result = 0.0;
+            var result = m.Computer.Zero;
             for (int r = 0; r < m.Rows; r++)
             {
                 for (int c = 0; c < m.Columns; c++)
                 {
                     var v = m[r, c];
-                    result += v * v;
+                    result = m.Computer.Add(result, m.Computer.Square(v));
                 }
             }
 
-            return Math.Sqrt(result);
+            return m.Computer.SquareRoot(result);
         }
     }
 }

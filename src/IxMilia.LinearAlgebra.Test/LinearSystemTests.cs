@@ -11,23 +11,21 @@ namespace IxMilia.LinearAlgebra.Test
             // 2x - 2y + 4z = -2
             // -x + 0.5y - z = 0
             // x = 1, y = -2, z = -2
-            var ls = new LinearSystem(new Matrix(3, 3,
-                3.0, 2.0, -1.0,
-                2.0, -2.0, 4.0,
-                -1.0, 0.5, -1.0),
-            new Matrix(3, 1,
-                1.0,
-                -2.0,
-                0.0));
+            var ls = new LinearSystem<double>(
+                Matrix.CreateDouble(3, 3,
+                    3.0, 2.0, -1.0,
+                    2.0, -2.0, 4.0,
+                    -1.0, 0.5, -1.0),
+                Matrix.CreateDouble(3, 1,
+                    1.0,
+                    -2.0,
+                    0.0));
             var solution = ls.Solve();
-            var expected = new Matrix(3, 1,
+            var expected = Matrix.CreateDouble(3, 1,
                 1.0,
                 -2.0,
                 -2.0);
-            using (new CloseToEqualityChecker())
-            {
-                Assert.Equal(expected, solution);
-            }
+            Assert.Equal(expected, solution, DoubleMatrixEqualityComparer.Instance);
         }
     }
 }

@@ -4,21 +4,15 @@ namespace IxMilia.LinearAlgebra.Test
 {
     public abstract class TestBase
     {
-        public static bool AreClose(double expected, double actual)
+        public static void AssertClose<T>(IAlgebraicComputer<T> computer, T expected, T actual)
         {
-            var diff = Math.Abs(actual - expected);
-            return diff <= 0.0000000000001;
-        }
-
-        public static void AssertClose(double expected, double actual)
-        {
-            if (!AreClose(expected, actual))
+            if (!computer.AreClose(expected, actual))
             {
                 throw new Exception($"Expected: {expected}, Actual: {actual}");
             }
         }
 
-        public static void AssertClose(Matrix expected, Matrix actual)
+        public static void AssertClose<T>(Matrix<T> expected, Matrix<T> actual)
         {
             if (expected.Rows != actual.Rows || expected.Columns != actual.Columns)
             {
@@ -29,7 +23,7 @@ namespace IxMilia.LinearAlgebra.Test
             {
                 for (int c = 0; c < expected.Columns; c++)
                 {
-                    AssertClose(expected[r, c], actual[r, c]);
+                    AssertClose(expected.Computer, expected[r, c], actual[r, c]);
                 }
             }
         }
