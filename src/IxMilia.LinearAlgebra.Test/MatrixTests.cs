@@ -92,7 +92,7 @@ namespace IxMilia.LinearAlgebra.Test
         [Fact]
         public void NormTest()
         {
-            Assert.Equal(5, Vector2.CreateInt32(3, 4).Norm(2));
+            Assert.Equal(5, Vector2.CreateDouble(3, 4).Norm(2));
         }
 
         [Fact]

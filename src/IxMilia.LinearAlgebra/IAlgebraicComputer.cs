@@ -1,4 +1,6 @@
-﻿namespace IxMilia.LinearAlgebra
+﻿using System;
+
+namespace IxMilia.LinearAlgebra
 {
     public interface IAlgebraicComputer<T>
     {
@@ -8,7 +10,7 @@
         T Divide(T a, T b);
         T Negate(T a);
         T AbsoluteValue(T a);
-        T Pow(T b, double e);
+        T Pow(T b, T e);
 
         bool AreEqual(T a, T b);
         bool IsLess(T a, T b);
@@ -39,6 +41,33 @@
             foreach (var value in rest)
             {
                 result = computer.Multiply(result, value);
+            }
+
+            return result;
+        }
+
+        public static T CreateInt<T>(this IAlgebraicComputer<T> computer, int value)
+        {
+            // this is really gross
+            if (value == 0)
+            {
+                return computer.Zero;
+            }
+
+            if (value == 1)
+            {
+                return computer.One;
+            }
+
+            var result = computer.Zero;
+            for (int i = 0; i < Math.Abs(value); i++)
+            {
+                result = computer.Add(result, computer.One);
+            }
+
+            if (value < 0)
+            {
+                result = computer.Negate(result);
             }
 
             return result;

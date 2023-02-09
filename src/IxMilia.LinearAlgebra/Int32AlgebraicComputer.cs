@@ -8,7 +8,7 @@ namespace IxMilia.LinearAlgebra
 
         public int Zero => 0;
 
-        public int One => 0;
+        public int One => 1;
 
         public int Epsilon => 0;
 
@@ -26,7 +26,7 @@ namespace IxMilia.LinearAlgebra
 
         public int Negate(int a) => -a;
 
-        public int Pow(int b, double e) => (int)Math.Pow(b, e);
+        public int Pow(int b, int e) => (int)Math.Pow(b, e);
 
         public int SquareRoot(int a) => (int)Math.Sqrt(a);
 

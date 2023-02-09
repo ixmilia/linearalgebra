@@ -22,9 +22,10 @@ namespace IxMilia.LinearAlgebra
             }
 
             var result = m.Computer.Zero;
+            var pInt = m.Computer.CreateInt(p);
             for (int i = 0; i < p; i++)
             {
-                result = m.Computer.Add(result, m.Computer.Pow(m.Computer.AbsoluteValue(m[i, 0]), p));
+                result = m.Computer.Add(result, m.Computer.Pow(m.Computer.AbsoluteValue(m[i, 0]), pInt));
             }
 
             return result;
@@ -33,7 +34,8 @@ namespace IxMilia.LinearAlgebra
         public static T Norm<T>(this Matrix<T> m, int p)
         {
             var unrooted = m.UnrootedNorm(p);
-            return m.Computer.Pow(unrooted, 1.0 / p);
+            var pInt = m.Computer.CreateInt(p);
+            return m.Computer.Pow(unrooted, m.Computer.Divide(m.Computer.One, pInt));
         }
 
         public static T MaxNorm<T>(this Matrix<T> m)
