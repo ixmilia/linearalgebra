@@ -46,7 +46,7 @@ namespace IxMilia.LinearAlgebra
                 throw new ArgumentOutOfRangeException(nameof(rowOffset));
             }
 
-            if (rowOffset + rows >= parent.Rows)
+            if (rowOffset + rows > parent.Rows)
             {
                 throw new ArgumentOutOfRangeException(nameof(rows));
             }
@@ -56,7 +56,7 @@ namespace IxMilia.LinearAlgebra
                 throw new ArgumentOutOfRangeException(nameof(columnOffset));
             }
 
-            if (columnOffset + columns >= parent.Columns)
+            if (columnOffset + columns > parent.Columns)
             {
                 throw new ArgumentOutOfRangeException(nameof(columns));
             }

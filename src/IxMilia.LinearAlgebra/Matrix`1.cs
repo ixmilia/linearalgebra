@@ -442,6 +442,22 @@ namespace IxMilia.LinearAlgebra
             return result;
         }
 
+        public T Fold(T initial, Func<T, T, T> combinator)
+        {
+            var result = initial;
+            for (int r = 0; r < Rows; r++)
+            {
+                for (int c = 0; c < Columns; c++)
+                {
+                    result = combinator(result, this[r, c]);
+                }
+            }
+
+            return result;
+        }
+
+        public T Sum() => Fold(Computer.Zero, Computer.Add);
+
         public Matrix<T> MapValue(Func<T, T> action)
         {
             return MapValue((_r, _c, value) => action(value));

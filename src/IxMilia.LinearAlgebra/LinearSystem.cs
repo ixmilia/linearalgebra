@@ -33,6 +33,13 @@ namespace IxMilia.LinearAlgebra
             Constants = constants;
         }
 
+        public LinearSystem(Matrix<T> values)
+            : this(
+                new SubMatrix<T>(values, 0, values.Rows, 0, values.Columns - 1),
+                new SubMatrix<T>(values, 0, values.Rows, values.Columns - 1, 1))
+        {
+        }
+
         public Matrix<T> Solve()
         {
             var inv = Coefficients.Inverse;
